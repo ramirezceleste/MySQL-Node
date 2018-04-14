@@ -5,11 +5,11 @@ Challenge #1: Customer View
 1. Create a MySQL Database called bamazon.
 2. Then create a Table inside of that database called products. The products table should have each of the following columns:
 
-item_id (unique id for each product)
-product_name (Name of product)
-department_name
-price (cost to customer)
-stock_quantity (how much of the product is available in stores)
+- item_id (unique id for each product)
+- product_name (Name of product)
+- department_name
+- price (cost to customer)
+- stock_quantity (how much of the product is available in stores)
 
 3. Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
@@ -29,11 +29,11 @@ Challenge #2: Manager View
 
 1. Create a new Node application called bamazonManager.js. Running this application will:
 
-List a set of menu options:
-View Products for Sale
-View Low Inventory
-Add to Inventory
-Add New Product
+- List a set of menu options:
+- View Products for Sale
+- View Low Inventory
+- Add to Inventory
+- Add New Product
 
 2. If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
 
