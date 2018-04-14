@@ -90,44 +90,44 @@ function addInventory(results) {
     if (err) throw err;
     console.log("");
     console.table(results);
-  inquirer
-    .prompt([
-      {
-        name: "addMoreId",
-        type: "input",
-        message: "What is the ID of the item you would like to add more of?",
-      },
-      {
-        name: "howMuch",
-        type: "input",
-        message: "How many units of the item would you like to add?",
-      }
-    ])
-    .then(function (answer) {
-      var chosen;
-      for (var i = 0; i < results.length; i++) {
-        if (results[i].item_id == parseInt(answer.addMoreId)) {
-          chosen = results[i];
-          connection.query(
-            "UPDATE products SET ? WHERE ?",
-          [
-            {
-              stock_quantity: chosen.stock_quantity + parseInt(answer.howMuch)
-            },
-            {
-              item_id: answer.addMoreId
-            }
-          ],
-            function (err) {
-              if (err) throw err;
-              console.log("");
-              console.log("You have added " + answer.howMuch + " units of the product " + chosen.product_name + ".");
-              displayProducts();
-            }
-          );
-        } 
-      }
-    });
+    inquirer
+      .prompt([
+        {
+          name: "addMoreId",
+          type: "input",
+          message: "What is the ID of the item you would like to add more of?",
+        },
+        {
+          name: "howMuch",
+          type: "input",
+          message: "How many units of the item would you like to add?",
+        }
+      ])
+      .then(function (answer) {
+        var chosen;
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].item_id == parseInt(answer.addMoreId)) {
+            chosen = results[i];
+            connection.query(
+              "UPDATE products SET ? WHERE ?",
+              [
+                {
+                  stock_quantity: chosen.stock_quantity + parseInt(answer.howMuch)
+                },
+                {
+                  item_id: answer.addMoreId
+                }
+              ],
+              function (err) {
+                if (err) throw err;
+                console.log("");
+                console.log("You have added " + answer.howMuch + " units of the product " + chosen.product_name + ".");
+                displayProducts();
+              }
+            );
+          }
+        }
+      });
   });
 }
 
@@ -155,7 +155,7 @@ function addNewProduct() {
         message: "How many items do you want to add to have in stock?",
       }
     ])
-    .then(function(answer) {
+    .then(function (answer) {
       connection.query(
         "INSERT INTO products SET ?",
         {
@@ -164,7 +164,7 @@ function addNewProduct() {
           price: answer.price,
           stock_quantity: answer.stock
         },
-        function(err) {
+        function (err) {
           if (err) throw err;
           console.log("");
           console.log("The product " + answer.productName + " has been added successfully.");
