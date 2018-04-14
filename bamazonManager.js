@@ -59,7 +59,7 @@ function menuOptions() {
           break;
 
         case "Add to Inventory":
-
+          addInventory();
           break;
 
         case "Add New Product":
@@ -92,6 +92,51 @@ function lowInventory() {
       console.log("");
       menuOptions();
     }
+  });
+}
+
+function addInventory(results) {
+  connection.query("SELECT * FROM products", function (err, results) {
+    if (err) throw err;
+  inquirer
+    .prompt([
+      {
+        name: "addMoreId",
+        type: "input",
+        message: "What is the ID of the item you would like to add more of?",
+      },
+      {
+        name: "howMuch",
+        type: "input",
+        message: "How much much of the item would you like to add?",
+      }
+    ])
+    .then(function (answer) {
+      var chosen;
+      for (var i = 0; i < results.length; i++) {
+        if (results[i].item_id == parseInt(answer.addMoreId)) {
+          chosen = results[i];
+          connection.query(
+            "UPDATE products SET ? WHERE ?",
+          [
+            {
+              stock_quantity: chosen.stock_quantity + parseInt(answer.howMuch)
+            },
+            {
+              item_id: answer.addMoreId
+            }
+          ],
+            function (err) {
+              if (err) throw err;
+              console.log("");
+              console.log("You have added " + answer.howMuch + " units of the product " + chosen.product_name + ".");
+              // re-prompt the user for if they want to bid or post
+              displayProducts();
+            }
+          );
+        }
+      }
+    });
   });
 }
 
