@@ -25,16 +25,6 @@ connection.connect(function (err) {
   menuOptions();
 });
 
-/* List a set of menu options:
-View Products for Sale
-View Low Inventory
-Add to Inventory
-Add New Product
-If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
-If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
-If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.*/
-
 function menuOptions() {
   inquirer
     .prompt({
@@ -63,7 +53,7 @@ function menuOptions() {
           break;
 
         case "Add New Product":
-
+          addNewProduct();
           break;
       }
     });
@@ -98,6 +88,8 @@ function lowInventory() {
 function addInventory(results) {
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
+    console.log("");
+    console.table(results);
   inquirer
     .prompt([
       {
@@ -108,7 +100,7 @@ function addInventory(results) {
       {
         name: "howMuch",
         type: "input",
-        message: "How much much of the item would you like to add?",
+        message: "How many units of the item would you like to add?",
       }
     ])
     .then(function (answer) {
@@ -130,13 +122,55 @@ function addInventory(results) {
               if (err) throw err;
               console.log("");
               console.log("You have added " + answer.howMuch + " units of the product " + chosen.product_name + ".");
-              // re-prompt the user for if they want to bid or post
               displayProducts();
             }
           );
-        }
+        } 
       }
     });
   });
+}
+
+function addNewProduct() {
+  inquirer
+    .prompt([
+      {
+        name: "productName",
+        type: "input",
+        message: "What is the name of the item you would like to add?"
+      },
+      {
+        name: "department",
+        type: "input",
+        message: "What department will this item be located in?"
+      },
+      {
+        name: "price",
+        type: "input",
+        message: "What would you like the price of the item to be?",
+      },
+      {
+        name: "stock",
+        type: "input",
+        message: "How many items do you want to add to have in stock?",
+      }
+    ])
+    .then(function(answer) {
+      connection.query(
+        "INSERT INTO products SET ?",
+        {
+          product_name: answer.productName,
+          department_name: answer.department,
+          price: answer.price,
+          stock_quantity: answer.stock
+        },
+        function(err) {
+          if (err) throw err;
+          console.log("");
+          console.log("The product " + answer.productName + " has been added successfully.");
+          displayProducts();
+        }
+      );
+    });
 }
 
