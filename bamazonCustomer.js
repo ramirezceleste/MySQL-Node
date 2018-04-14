@@ -3,11 +3,11 @@ var inquirer = require("inquirer");
 const cTable = require('console.table');
 var figlet = require('figlet');
 
-figlet('Customer View', function(err, data) {
+figlet('Customer View', function (err, data) {
   if (err) {
-      console.log('Something went wrong...');
-      console.dir(err);
-      return;
+    console.log('Something went wrong...');
+    console.dir(err);
+    return;
   }
   console.log(data)
 });
@@ -15,11 +15,7 @@ figlet('Customer View', function(err, data) {
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
-
-  // Your username
   user: "root",
-
-  // Your password
   password: "password",
   database: "bamazon"
 });
@@ -56,14 +52,11 @@ function questions(results) {
       ])
       .then(function (answer) {
         var chosenItem;
-
         for (var i = 0; i < results.length; i++) {
           // console.log(typeof answer.idChoice);
           if (results[i].item_id == parseInt(answer.idChoice)) {
             chosenItem = results[i];
-           
             if (chosenItem.stock_quantity >= parseInt(answer.units)) {
-              // bid was high enough, so update db, let the user know, and start over
               connection.query(
                 "UPDATE products SET ? WHERE ?",
                 [
@@ -77,14 +70,13 @@ function questions(results) {
                 function (error) {
                   if (error) throw err;
                   console.log("");
-                  console.log("Everything worked successfully!");
+                  console.log("Purchase complete!");
                   console.log("");
                   console.log("The total cost of your purchase was $" + answer.units * chosenItem.price + " dollars.");
                   displayProducts();
                 }
               );
             } else {
-              // bid wasn't high enough, so apologize and start over
               console.log("");
               console.log("Insufficient quantity! Please try again.");
               displayProducts();
