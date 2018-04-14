@@ -51,7 +51,7 @@ function questions(results) {
         {
           name: "units",
           type: "input",
-          message: "How many would you like to buy?"
+          message: "How many units would you like to buy?"
         }
       ])
       .then(function (answer) {
@@ -78,6 +78,8 @@ function questions(results) {
                   if (error) throw err;
                   console.log("");
                   console.log("Everything worked successfully!");
+                  console.log("");
+                  console.log("The total cost of your purchase was $" + answer.units * chosenItem.price + " dollars.");
                   displayProducts();
                 }
               );
