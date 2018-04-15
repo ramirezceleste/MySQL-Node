@@ -58,10 +58,13 @@ function questions(results) {
             chosenItem = results[i];
             if (chosenItem.stock_quantity >= parseInt(answer.units)) {
               connection.query(
-                "UPDATE products SET ? WHERE ?",
+                "UPDATE products SET ? , ? WHERE ?",
                 [
                   {
                     stock_quantity: chosenItem.stock_quantity - answer.units
+                  },
+                  {
+                    product_sales: chosenItem.product_sales + (answer.units * chosenItem.price)
                   },
                   {
                     item_id: chosenItem.item_id
