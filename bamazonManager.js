@@ -162,7 +162,8 @@ function addNewProduct() {
           product_name: answer.productName,
           department_name: answer.department,
           price: answer.price,
-          stock_quantity: answer.stock
+          stock_quantity: answer.stock,
+          product_sales: 0
         },
         function (err) {
           if (err) throw err;
@@ -173,4 +174,13 @@ function addNewProduct() {
       );
     });
 }
+
+// Manager Problems:
+// (Add New Product)
+// Product sales are suppose to be 0 when an item is added. 
+// Item_id is now jumping numbers and not going in order even after I deleted rows. 
+
+// Supervisor Problems:
+// (View Departments)
+// For departments I have data repeating. 
 
