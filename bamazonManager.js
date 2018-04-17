@@ -2,6 +2,13 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 const cTable = require('console.table');
 var figlet = require('figlet');
+var colors = require('colors');
+ 
+colors.setTheme({
+  success: 'green',
+  error: 'red',
+  general: 'blue'
+});
 
 figlet('Manager View', function (err, data) {
   if (err) {
@@ -73,7 +80,7 @@ function lowInventory() {
     if (err) throw err;
     if (res == 0) {
       console.log("");
-      console.log("There are no items that have less than 5 in stock.");
+      console.log(colors.general("There are no items that have less than 5 in stock."));
       console.log("");
       menuOptions();
     } else {
@@ -121,7 +128,7 @@ function addInventory(results) {
               function (err) {
                 if (err) throw err;
                 console.log("");
-                console.log("You have added " + answer.howMuch + " units of the product " + chosen.product_name + ".");
+                console.log(colors.success("You have added " + answer.howMuch + " units of the product " + chosen.product_name + "."));
                 displayProducts();
               }
             );
@@ -174,8 +181,68 @@ function addNewProduct() {
     });
 }
 
-// Supervisor Problems:
-// (View Departments)
-// If product is added with a new department it doesn't show up in the department side. It only shows up in the View product by department. 
-// However if I add a new department then the data will show up. 
+
+// DIDN'T CHECK CORRECTLY MY DATA CAME BACK AS 0 EACH TIME SO IT KEPT TELLING ME I COULDN'T ADD A PRODUCT EVEN IF IT WAS AN EXISITING DEPARTMENT. 
+// Tried a few different things but it never worked how it was suppose too. 
+
+// function addNewProduct() {
+//   inquirer
+//     .prompt([
+//       {
+//         name: "productName",
+//         type: "input",
+//         message: "What is the name of the item you would like to add?"
+//       },
+//       {
+//         name: "department",
+//         type: "input",
+//         message: "What department will this item be located in?"
+//       },
+//       {
+//         name: "price",
+//         type: "input",
+//         message: "What would you like the price of the item to be?",
+//       },
+//       {
+//         name: "stock",
+//         type: "input",
+//         message: "How many items do you want to add to have in stock?",
+//       }
+//     ])
+//     .then(function (answer) {
+//       connection.query(
+//       "SELECT * FROM departments WHERE department_name = ?",
+//       {
+//         department_name: answer.department
+//       },
+//       function(err, data) {
+//         console.log(typeof(data.length));
+//         if (err) throw err;
+//         if (data.length === 0) {
+//           console.log("");
+//           console.log(colors.error("Sorry that department doesn't exist! Only a Supervisor can add new departments. Please try again by adding new products to existing departments."));
+//           displayProducts();
+//         } else {
+//           connection.query(
+//             "INSERT INTO products SET ?",
+//             {
+//               product_name: answer.productName,
+//               department_name: answer.department,
+//               price: answer.price,
+//               stock_quantity: answer.stock
+//             },
+//             function (err) {
+//               if (err) throw err;
+//               console.log("");
+//               console.log(colors.success("The product " + answer.productName + " has been added successfully."));
+//               displayProducts();
+//             }
+//           );
+//         }
+      
+//       }
+//       );
+     
+//     });
+// }
 

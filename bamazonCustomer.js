@@ -2,6 +2,13 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 const cTable = require('console.table');
 var figlet = require('figlet');
+var colors = require('colors');
+ 
+colors.setTheme({
+  success: 'green',
+  error: 'red',
+  general: 'blue'
+});
 
 figlet('Customer View', function (err, data) {
   if (err) {
@@ -73,15 +80,15 @@ function questions(results) {
                 function (error) {
                   if (error) throw err;
                   console.log("");
-                  console.log("Purchase complete!");
+                  console.log(colors.success("Purchase complete!"));
                   console.log("");
-                  console.log("The total cost of your purchase was $" + answer.units * chosenItem.price + " dollars.");
+                  console.log(colors.success("The total cost of your purchase was $" + answer.units * chosenItem.price + " dollars."));
                   displayProducts();
                 }
               );
             } else {
               console.log("");
-              console.log("Insufficient quantity! Please try again.");
+              console.log(colors.error("Insufficient quantity! Please try again."));
               displayProducts();
             }
           }

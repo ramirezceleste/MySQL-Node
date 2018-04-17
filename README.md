@@ -2,6 +2,8 @@
 
 Challenge #1: Customer View 
 
+DEMO LINK: https://drive.google.com/open?id=10131xRmTPAsNtV0V6sI2OmPFwg0ag8mO
+
 1. Create a MySQL Database called bamazon.
 2. Then create a Table inside of that database called products. The products table should have each of the following columns:
 
@@ -27,6 +29,8 @@ However, if your store does have enough of the product, you should fulfill the c
 
 Challenge #2: Manager View 
 
+DEMO LINK: https://drive.google.com/open?id=1zwLyBexKdArnKfbGkP55YEfL5X98Uck-
+
 1. Create a new Node application called bamazonManager.js. Running this application will:
 
 - List a set of menu options:
@@ -44,6 +48,8 @@ Challenge #2: Manager View
 5. If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
 
 Challenge #3: Supervisor View 
+
+DEMO LINK: https://drive.google.com/open?id=1CJZG0MAw3tJ7GmE9uNLBq36-HTWjTReV
 
 1. Create a new MySQL table called departments. Your table should include the following columns:
 

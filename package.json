@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ramirezceleste/MySQL-Node#readme",
   "dependencies": {
+    "colors": "^1.2.1",
     "console.table": "^0.10.0",
     "figlet": "^1.2.0",
     "inquirer": "^5.2.0",

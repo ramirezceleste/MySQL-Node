@@ -2,6 +2,13 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 const cTable = require('console.table');
 var figlet = require('figlet');
+var colors = require('colors');
+ 
+colors.setTheme({
+  success: 'green',
+  error: 'red',
+  general: 'blue'
+});
 
 figlet('Supervisor View', function (err, data) {
   if (err) {
@@ -83,7 +90,7 @@ function createDepartment() {
       function (err) {
         if (err) throw err;
         console.log("");
-        console.log("The department " + answer.departmentName + " has been added successfully.");
+        console.log(colors.success("The department " + answer.departmentName + " has been added successfully."));
         console.log("");
         displayDepartments();
       }
